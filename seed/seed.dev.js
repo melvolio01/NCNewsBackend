@@ -1,6 +1,6 @@
 const seedDB = require('./seed');
 const mongoose = require('mongoose');
-const DB_URL = 'mongodb://localhost:27017/northcoder_news';
+const DB_URL = 'mongodb://localhost:27017/northcoder_news_2';
 const data  = require('./testData/index.js')
 
 console.log('Seed dev page running');

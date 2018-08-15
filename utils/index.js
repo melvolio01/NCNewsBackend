@@ -13,3 +13,33 @@ exports.formatTopicData = (topicData) => {
        }
    })
 }
+
+exports.formatArticleData = (articleData, userDocs, topicDocs) => {
+    return articleData.map((articleDatum) => {
+        const topic_name = topicDocs.find((topic) => {
+            return topic.slug === articleDatum.topic
+        })
+        const user_name = userDocs.find((user) => { 
+            return user.username === articleDatum.created_by
+        })
+        const created_by = user_name._id;
+        articleDatum.created_by = created_by;
+        return {
+            ...articleDatum,
+            belongs_to: topic_name.slug
+        }
+    })
+}
+
+exports.formatCommentData = (commentData, articleDocs) => {
+    return commentData.map((commentDatum) => {
+        const article_info = articleDocs.find((article) => {
+            return article.title === commentDatum.belongs_to
+        }); 
+        return {
+            ...commentDatum,
+            belongs_to: article_info._id,
+            created_by: article_info.created_by
+        }
+    });
+}
