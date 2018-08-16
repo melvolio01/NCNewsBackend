@@ -9,7 +9,7 @@ const getHomePage = require('../controllers/api');
 
 
 app.use('/', express.static('public'));
-// apiRouter.use('/articles', articleRouter);
+apiRouter.use('/articles', articleRouter);
 // apiRouter.use('/comments', commentRouter);
 apiRouter.use('/topics', topicRouter);
 // apiRouter.use('/users', userRouter);

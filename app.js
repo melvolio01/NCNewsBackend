@@ -19,9 +19,14 @@ app.use('/api', apiRouter);
 app.use('/*', (req, res, next) => {
     res.status(404).send('Page not found');
 });
-app.use((err, req, res, next) => {
-    if (err.status) res.status(err.status).send({message: err.message});
-    else next(err);
-});
+
+app.use((err,req,res,next) => {
+    res.status(err.status).send(err.message);
+})
+
+// app.use((err, req, res, next) => {
+//     if (err.status) res.status(err.status).send({message: err.message});
+//     else next(err);
+// });
 
 module.exports = app;

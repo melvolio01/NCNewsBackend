@@ -13,7 +13,7 @@ const getArticlesByTopic = (req, res, next) => {
     Article.find({ 'belongs_to' : `${topic_slug.topic_slug}` })
     .then(articles => {
         if (articles.length > 0) res.status(200).send({ articles })
-        else res.status(404).send({msg: 'No articles for that topic'});
+        else res.status(404).send({message: 'No articles for that topic'});
     })
     .catch(next);
 }
