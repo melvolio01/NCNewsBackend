@@ -27,10 +27,26 @@ const getArticleById = (req, res, next) => {
 }
 
 const getArticleComments = (req, res, next) => { 
+    let commentArticle;
+    Article.findOne({_id: req.params.article_id})
+    .then(article => {
+        commentArticle = article;
+    });
     Comment.find({belongs_to: req.params.article_id})
     .then(comments => {
+        if (commentArticle.body !== null ) {
         res.status(200).send({ comments });
+        }
     })
+    .catch(err => {
+        if (err) {
+            if (err.name === 'CastError') {
+                next({status : 400, message : 'Error, page not found'});
+            } else {
+                next({ status : 404, message: 'Error, no article with that ID exists'});
+            }
+        }       
+    });
 }
 
 module.exports = { getAllArticles, getArticleById, getArticleComments };

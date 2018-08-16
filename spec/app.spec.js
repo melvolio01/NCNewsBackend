@@ -14,7 +14,6 @@ describe('Northcoders_News API /api', () => {
         });
     });
 
-    
     after(() => mongoose.disconnect());
 
     describe('/topics', () => {
@@ -118,7 +117,7 @@ describe('Northcoders_News API /api', () => {
             });
         })
     });
-    describe('/api/articles/:article_id/comments', () => {
+    describe.only('/api/articles/:article_id/comments', () => {
         it('GET retrieves comments for a specific article by article ID', () => {
             return request.get(`/api/articles/${articleDocs[0]._id}/comments`)
             .expect(200)
@@ -136,5 +135,20 @@ describe('Northcoders_News API /api', () => {
                 expect(res.body.comments[0].votes).to.equal(7);
             })
         });
+        it('GET returns a 400 error and appropriate message for a bad GET comment request', () => {
+            return request.get(`/api/articles/somethingaboutfootball/comments`)
+            .expect(400)
+            .then(res => {
+                expect(res.text).to.equal('Error, page not found');
+            });
+        });
+        it('Returns a 404 error and appropriate message for a comment GET request with incorrect ID', () => {
+            return request.get(`/api/articles/${wrongID}/comments`)
+            .expect(404)
+            .then(res => {
+                expect(res.text).to.equal('Error, no article with that ID exists');
+            });
+        })
     });
 });
+
