@@ -19,14 +19,17 @@ exports.formatArticleData = (articleData, userDocs, topicDocs) => {
         const topic_name = topicDocs.find((topic) => {
             return topic.slug === articleDatum.topic
         })
+       
+            
         const user_name = userDocs.find((user) => { 
             return user.username === articleDatum.created_by
         })
         const created_by = user_name._id;
-        articleDatum.created_by = created_by;
+        
         return {
             ...articleDatum,
-            belongs_to: topic_name.slug
+            belongs_to: topic_name.slug,
+            created_by
         }
     })
 }

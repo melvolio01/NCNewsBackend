@@ -1,0 +1,37 @@
+body {
+    padding: 40px;
+}
+
+h1 {
+    color: Dark;
+}
+
+.heading {
+    padding: 20px 0;
+}
+
+.container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.container h3 {
+    margin-left: 50px;
+    font-family: 'Jua', sans-serif;
+    padding: 2px;
+    background-color: #bbdefb;
+    color: #d50000;
+    letter-spacing: 2px;
+}
+
+.small-highlight {
+    padding: 2px;
+    font-family: 'Jua', sans-serif;
+    background-color: #bbdefb;
+    color: #d50000;
+    letter-spacing: 1px;
+}
+
+p {
+    line-height: 1.8;
+}

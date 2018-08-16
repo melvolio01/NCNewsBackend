@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Northcoder News</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Jua" rel="stylesheet">
+
+    <script src="main.js"></script>
+</head>
+<body>
+    <div class="heading">
+        <h1 class="Dark">Northcoders News</h1>
+        <h2>API Endpoints</h2>
+    </div>
+    <div>
+        <span class="container"><h2>GET </h2><h3>/api/topics</h3></span>
+        <p>Get all the topics</p>
+    </div>
+    <div>
+        <span class="container"><h2>GET </h2><h3>/api/topics/:topic/articles</h3></span>
+        <p>Return all the articles for a certain topic</p>
+    </div>
+    <div>
+        <span class="container"><h2>GET </h2><h3>/api/articles</h3></span>
+        <p>Returns all the articles</p>
+    </div>
+    <div>
+        <span class="container"><h2>GET </h2><h3>/api/articles/:article_id/comments</h3></span>
+        <p>Get all the comments for a individual article</p>
+    </div>
+    <div>
+        <span class="container"><h2>POST </h2><h3>/api/articles/:article_id/comments</h3></span>
+        <p>Add a new comment to an article. This route requires a JSON <span class="small-highlight"></span>body with a <span class="small-highlight">comment</span> key and value pair
+           <br>e.g <span class="small-highlight">{"comment": "This is my new comment"}</span></p>
+    </div>
+    <div>
+        <span class="container"><h2>PUT </h2><h3>/api/articles/:article_id</h3></span>
+        <p>Increment or Decrement the votes of an article by one. This route requires a <span class="small-highlight">vote</span> query of 'up' or 'down'<br>
+           eg <span class="small-highlight">http://northcoders-news-api.herokuapp.com/api/articles/:article_id?vote=up</span></p>
+    </div>
+</body>
+</html>
