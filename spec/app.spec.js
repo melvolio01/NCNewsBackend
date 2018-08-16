@@ -117,7 +117,7 @@ describe('Northcoders_News API /api', () => {
             });
         })
     });
-    describe.only('/api/articles/:article_id/comments', () => {
+    describe('/api/articles/:article_id/comments', () => {
         it('GET retrieves comments for a specific article by article ID', () => {
             return request.get(`/api/articles/${articleDocs[0]._id}/comments`)
             .expect(200)
@@ -149,6 +149,30 @@ describe('Northcoders_News API /api', () => {
                 expect(res.text).to.equal('Error, no article with that ID exists');
             });
         })
+    });
+    describe.only('/api/users/:username', () => {
+        it('Returns a "user" object following a valid GET request', () => {
+            return request.get(`api/users/${userDocs[0].username}`)
+            return request.get('/api/users/dedekind561')
+            .expect(200)
+            .then(res => {
+                expect(res.body.user.name).to.equal('mitch');
+                expect(res.body.user).to.have.all.keys(
+                    '_id',
+                    'username',
+                    'name',
+                   'avatar_url',
+                    '__v'
+                );
+            });
+        });
+        it('An Invalid "username" string GET returns a status of 404 and an error message', () => {
+            return request.get('/api/users/cooljmessy')
+            .expect(404)
+            .then(res => {
+                expect(res.text).to.equal('No user goes by that username');
+            });
+        });
     });
 });
 
