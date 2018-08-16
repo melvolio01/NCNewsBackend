@@ -118,4 +118,23 @@ describe('Northcoders_News API /api', () => {
             });
         })
     });
+    describe('/api/articles/:article_id/comments', () => {
+        it('GET retrieves comments for a specific article by article ID', () => {
+            return request.get(`/api/articles/${articleDocs[0]._id}/comments`)
+            .expect(200)
+            .then(res => {
+                expect(res.body.comments.length).to.equal(2);
+                expect(res.body.comments[0]).to.have.all.keys(
+                    '_id',
+                    'body',
+                    'belongs_to',
+                    'created_by',
+                    'created_at',
+                    '__v',
+                    'votes'
+                );
+                expect(res.body.comments[0].votes).to.equal(7);
+            })
+        });
+    });
 });

@@ -1,4 +1,5 @@
 const Article = require('../models/index.js').Article;
+const Comment = require('../models/index.js').Comment;
 
 const getAllArticles = (req, res, next) => {
     Article.find()
@@ -25,4 +26,11 @@ const getArticleById = (req, res, next) => {
     });
 }
 
-module.exports = { getAllArticles, getArticleById };
+const getArticleComments = (req, res, next) => { 
+    Comment.find({belongs_to: req.params.article_id})
+    .then(comments => {
+        res.status(200).send({ comments });
+    })
+}
+
+module.exports = { getAllArticles, getArticleById, getArticleComments };
