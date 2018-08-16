@@ -59,11 +59,46 @@ describe('Northcoders_News API /api', () => {
                 expect(res.body.articles).to.equal(undefined);
             });
         });
-        // it('POSTS a new article to topic route', () => {
-
-        // });
+        it('POSTS a new article to topic route', () => {
+          const newArt = {
+                "title": "We need to talk about Kevin",
+                "body": "De Bruyne is bloody well injured again!",
+                "username": "happyamy2016"
+          }  
+          return request.post('/api/topics/football/articles')
+          .send(newArt)
+          .expect(201)
+          .then( res => {
+              expect(res.body.article.title).to.equal('We need to talk about Kevin')
+              expect(res.body.article).to.have.all.keys(
+                "votes",
+                "_id",
+                "belongs_to",
+                "title",
+                "body",
+                "created_by",
+                "created_at",
+                "__v"
+              )
+              expect(res.body.article.belongs_to).to.equal('football')
+          });
+        });
+        it('POST returns a status 400 and error message when a required field is missing', () => {
+            const weakArt = {
+                "body": "Much ado about nothing at all",
+                "username": "cooljmessy"
+          } 
+          return request.post('/api/topics/coding/articles')
+          .send(weakArt)
+          .expect(400)
+          .then( res => {
+              expect(res.text).to.equal('The article is incomplete, please check all required fields have been completed.')
+          })
+        })
     });
 
+
+    //The article is incomplete, please check all required fields have been completed.'
     describe('/api/articles', () => {
         it('GET returns a list of all articles', () => {
             return request.get('/api/articles')
@@ -150,7 +185,7 @@ describe('Northcoders_News API /api', () => {
             });
         })
     });
-    describe.only('/api/users/:username', () => {
+    describe('/api/users/:username', () => {
         it('Returns a "user" object following a valid GET request', () => {
             return request.get(`api/users/${userDocs[0].username}`)
             return request.get('/api/users/dedekind561')

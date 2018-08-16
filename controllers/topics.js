@@ -19,7 +19,22 @@ const getArticlesByTopic = (req, res, next) => {
 }
 
 const addArticleByTopic = (req, res, next) => {
-
+    let newArticle = req.body;
+    
+    let articleSlug = req.params.topic_slug;
+    Article.create({
+        belongs_to: articleSlug,
+        title: newArticle.title,
+        body: newArticle.body,
+        created_by: newArticle.username
+    })
+    .then(article => {
+        res.status(201).send({article});
+    })
+    .catch(err => {
+        next({status:400, message: 'The article is incomplete, please check all required fields have been completed.'});
+    });
 }
 
-module.exports = { getAllTopics, getArticlesByTopic };
+
+module.exports = { getAllTopics, getArticlesByTopic, addArticleByTopic };
