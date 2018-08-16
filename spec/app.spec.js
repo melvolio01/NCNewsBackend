@@ -111,9 +111,7 @@ describe('Northcoders_News API /api', () => {
             });
         });
         it('Returns a 404 error and appropriate message for a GET request with incorrect ID', () => {
-            // console.log(`/api/articles/${wrongID}`);
-            // return request.get(`/api/articles/${wrongID}`)
-            return request.get(`/api/articles/5b75888d95de585bd4d5050b`)
+            return request.get(`/api/articles/${wrongID}`)
             .expect(404)
             .then(res => {
                 expect(res.text).to.equal('Error, no article with that ID exists');
