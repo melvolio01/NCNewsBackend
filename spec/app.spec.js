@@ -50,8 +50,15 @@ describe('Northcoders_News API /api', () => {
                 expect(res.body.articles[0].title).to.equal('Living in the shadow of a great man');
             });
         });
+        it('An Invalid "topic" string GET returns a status of 404 and an error message', () => {
+            return request.get('/api/topics/blahblahblah/articles')
+            .expect(404)
+            .then(res => {
+                expect(res.body.msg).to.equal('No articles for that topic');
+                expect(res.body.articles).to.equal(undefined);
+            });
+        });
     });
-
 });
 
 
