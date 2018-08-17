@@ -9,7 +9,7 @@ const getAllComments = (req, res, next) => {
 
 const removeCommentByCommentId = (req, res, next) => {
     let commentID = req.params.comment_id;
-    Comment.findByIdAndRemove({_id: req.params.comment_id})
+    Comment.findByIdAndRemove({_id: commentID})
     .then(comment => {
         res.status(201).send({comment, message: `comment deleted`})
     })
@@ -21,11 +21,9 @@ const removeCommentByCommentId = (req, res, next) => {
 const updateCommentLikes = (req, res, next) => {
     const commentID = req.params;
     const thumbs = req.query.vote;
-    console.log(thumbs);
     let voteInc = 0;
     if (thumbs === 'up') voteInc = 1;
     else if (thumbs === 'down') voteInc = -1;
-    console.log(voteInc);
     if (voteInc !== 0) {
         Comment.findByIdAndUpdate(commentID.comment_id, { 'votes' : voteInc }, {new : true })
         .then(comment => {
@@ -37,7 +35,7 @@ const updateCommentLikes = (req, res, next) => {
             }
         });
     }
-    res.status(400).send('Error, invalid query');
+    else res.status(400).send('Error, invalid query');
 }
 
 module.exports = { getAllComments, removeCommentByCommentId, updateCommentLikes };
