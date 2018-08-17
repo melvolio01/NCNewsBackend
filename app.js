@@ -2,7 +2,8 @@ const express = require('express')
 const app = express();
 const bodyParser = require('body-parser');
 const apiRouter = require('./router/api');
-const DB_URL = require('./config/db-config.js').dbConfig[process.env.NODE_ENV].DB_URL;
+const DB_URL = process.env.MONGO_URI; 
+// || require('./config/db-config.js').dbConfig[process.env.NODE_ENV].DB_URL;
 const mongoose = require('mongoose');
 
 mongoose.connect(DB_URL)
