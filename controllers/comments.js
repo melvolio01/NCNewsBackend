@@ -25,7 +25,7 @@ const updateCommentLikes = (req, res, next) => {
     if (thumbs === 'up') voteInc = 1;
     else if (thumbs === 'down') voteInc = -1;
     if (voteInc !== 0) {
-        Comment.findByIdAndUpdate(commentID.comment_id, { 'votes' : voteInc }, {new : true })
+        Comment.findByIdAndUpdate(commentID.comment_id, {$inc :{ 'votes' : voteInc }}, {new : true })
         .then(comment => {
             res.status(201).send({comment})  
         }) 

@@ -57,11 +57,11 @@ const updateArticleLikes = (req, res, next) => {
     if (thumbs === 'up') voteInc = 1;
     else if (thumbs === 'down') voteInc = -1;
     if (voteInc !== 0) {
-        Article.findByIdAndUpdate(articleID.article_id, { 'votes' : voteInc }, {new : true })
+        Article.findByIdAndUpdate(articleID.article_id, {$inc :{ 'votes' : voteInc }}, {new : true })
         .then(article => {
             res.status(201).send({article})
         })
-        .catch((err) => {
+        .catch((err) => {s
             res.send({status: 400, message: 'Error, invalid query'})
         });
         }

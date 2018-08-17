@@ -294,14 +294,14 @@ describe('Northcoders_News API /api', () => {
             return(request.put(`/api/comments/${commentDocs[0]._id}?vote=up`))
             .expect(201)
             .then(res => {
-                expect(res.body.comment.votes).to.equal(1);
+                expect(res.body.comment.votes).to.equal(8);
             });
          });
          it('PUT should increment down comment like total for ?vote=down query', () => {
             return(request.put(`/api/comments/${commentDocs[0]._id}?vote=down`))
             .expect(201)
             .then(res => {
-                expect(res.body.comment.votes).to.equal(-1);
+                expect(res.body.comment.votes).to.equal(6);
             });
          });
          it('Incorrect query in PUT request should return an appropriate error message', () => {
