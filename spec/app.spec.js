@@ -183,8 +183,42 @@ describe('Northcoders_News API /api', () => {
             .then(res => {
                 expect(res.text).to.equal('Error, no article with that ID exists');
             });
+        });
+
+        it('Adds a new comment to an article following post request', () => {
+            const newComment = {
+                "body": "De Bruyne is bloody well injured again!",
+                "created_by": `${userDocs[1]._id}`
+            }
+            return request.post(`/api/articles/${articleDocs[2]._id}/comments`)
+            .send(newComment)
+            .expect(201)
+            .then( res => {
+              expect(res.body.comment.body).to.equal('De Bruyne is bloody well injured again!')
+              expect(res.body.comment).to.have.all.keys(
+                "body",
+                "votes",
+                "belongs_to",
+                "_id",
+                "created_by",
+                "created_at",
+                "__v"
+              )
+          }); 
+        });
+        it.only('POST returns a status 400 and error message when a required field is missing', () => {
+            const emptyComment = {
+                "created_by": `${userDocs[1]._id}`
+          } 
+          return request.post(`/api/articles/${articleDocs[0]._id}/comments`)
+          .send(emptyComment)
+          .expect(400)
+          .then( res => {
+              expect(res.text).to.equal('The comment has missing fields, please check and complete.')
+          })
         })
     });
+
     describe('/api/users/:username', () => {
         it('Returns a "user" object following a valid GET request', () => {
             return request.get(`api/users/${userDocs[0].username}`)
