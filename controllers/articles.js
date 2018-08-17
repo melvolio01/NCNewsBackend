@@ -49,6 +49,19 @@ const getArticleComments = (req, res, next) => {
     });
 }
 
+const updateArticleLikes = (req, res, next) => {
+    const articleID = req.params;
+    const thumbs = req.query.vote;
+    console.log(articleID.article_id);
+    if (thumbs === 'up') {
+        Article.findByIdAndUpdate(articleID.article_id)
+        .then(article => {
+            console.log(article.votes)
+            res.status(201).send({article})
+        })
+    }
+}
+
 const addCommentToArticle = (req, res, next) => {
     let newComment = req.body;
     
@@ -66,4 +79,4 @@ const addCommentToArticle = (req, res, next) => {
     });
 }
 
-module.exports = { getAllArticles, getArticleById, getArticleComments, addCommentToArticle };
+module.exports = { getAllArticles, getArticleById, getArticleComments, addCommentToArticle, updateArticleLikes };
