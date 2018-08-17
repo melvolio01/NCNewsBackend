@@ -206,7 +206,7 @@ describe('Northcoders_News API /api', () => {
               )
           }); 
         });
-        it.only('POST returns a status 400 and error message when a required field is missing', () => {
+        it('POST returns a status 400 and error message when a required field is missing', () => {
             const emptyComment = {
                 "created_by": `${userDocs[1]._id}`
           } 
@@ -240,6 +240,34 @@ describe('Northcoders_News API /api', () => {
             .expect(404)
             .then(res => {
                 expect(res.text).to.equal('No user goes by that username');
+            });
+        });
+    });
+
+    describe('/api/comments', () => {
+        // This route only added to make testing easier for delete comment route, have therefore only tested length of array
+        it('Should return all comments', () => {
+            return(request.get('/api/comments'))
+            .expect(200)
+            .then(res => {
+                expect(res.body.comments.length).to.equal(8);
+            });
+        });
+    });
+
+    describe('/api/comments/:comment_id', () => {
+        it.only('Should delete a comment following a DELETE request', () => {
+            let userID = userDocs[0]._id;
+            return(request.delete(`/api/comments/${commentDocs[0]._id}`))
+            .expect(201)
+            .then(res => {
+                expect(res.body.message).to.equal('comment deleted')
+                expect(res.body.comment.created_by).to.equal(userID.toString())
+                return(request.get('/api/comments'))
+                .expect(200)
+                .then(res => {
+                    expect(res.body.comments.length).to.equal(7);
+                });
             });
         });
     });
