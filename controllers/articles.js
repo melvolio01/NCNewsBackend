@@ -52,19 +52,24 @@ const getArticleComments = (req, res, next) => {
 const updateArticleLikes = (req, res, next) => {
     const articleID = req.params;
     const thumbs = req.query.vote;
-    console.log(articleID.article_id);
-    if (thumbs === 'up') {
-        Article.findByIdAndUpdate(articleID.article_id)
+    let voteInc = 0;
+
+    if (thumbs === 'up') voteInc = 1;
+    else if (thumbs === 'down') voteInc = -1;
+    if (voteInc !== 0) {
+        Article.findByIdAndUpdate(articleID.article_id, { 'votes' : voteInc }, {new : true })
         .then(article => {
-            console.log(article.votes)
             res.status(201).send({article})
         })
-    }
+        .catch((err) => {
+            res.send({status: 400, message: 'Error, invalid query'})
+        });
+        }
+    else res.status(400).send('Error, invalid query');
 }
 
 const addCommentToArticle = (req, res, next) => {
     let newComment = req.body;
-    
     let commentArticle = req.params.article_id;
     Comment.create({
         body:  newComment.body,

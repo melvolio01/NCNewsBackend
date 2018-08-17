@@ -18,4 +18,26 @@ const removeCommentByCommentId = (req, res, next) => {
     });
 }
 
-module.exports = { getAllComments, removeCommentByCommentId };
+const updateCommentLikes = (req, res, next) => {
+    const commentID = req.params;
+    const thumbs = req.query.vote;
+    console.log(thumbs);
+    let voteInc = 0;
+    if (thumbs === 'up') voteInc = 1;
+    else if (thumbs === 'down') voteInc = -1;
+    console.log(voteInc);
+    if (voteInc !== 0) {
+        Comment.findByIdAndUpdate(commentID.comment_id, { 'votes' : voteInc }, {new : true })
+        .then(comment => {
+            res.status(201).send({comment})  
+        }) 
+        .catch((err) => {
+            if(err) {
+                res.send({status: 400, message: 'Error, invalid query'})
+            }
+        });
+    }
+    res.status(400).send('Error, invalid query');
+}
+
+module.exports = { getAllComments, removeCommentByCommentId, updateCommentLikes };

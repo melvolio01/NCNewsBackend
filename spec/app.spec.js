@@ -97,8 +97,6 @@ describe('Northcoders_News API /api', () => {
         })
     });
 
-
-    //The article is incomplete, please check all required fields have been completed.'
     describe('/api/articles', () => {
         it('GET returns a list of all articles', () => {
             return request.get('/api/articles')
@@ -150,7 +148,28 @@ describe('Northcoders_News API /api', () => {
             .then(res => {
                 expect(res.text).to.equal('Error, no article with that ID exists');
             });
-        })
+        });
+        it('PUT should increment up article like total for ?vote=up query', () => {
+            return(request.put(`/api/articles/${articleDocs[0]._id}?vote=up`))
+            .expect(201)
+            .then(res => {
+                expect(res.body.article.votes).to.equal(1);
+            });
+         });
+         it('PUT should increment down article like total for ?vote=down query', () => {
+            return(request.put(`/api/articles/${articleDocs[0]._id}?vote=down`))
+            .expect(201)
+            .then(res => {
+                expect(res.body.article.votes).to.equal(-1);
+            });
+         });
+         it('Incorrect query in PUT request should return an appropriate error message', () => {
+            return(request.put(`/api/articles/${articleDocs[0]._id}?vote=nope`))
+            .expect(400)
+            .then(res => {
+                expect(res.text).to.equal('Error, invalid query');
+            });
+         });
     });
     describe('/api/articles/:article_id/comments', () => {
         it('GET retrieves comments for a specific article by article ID', () => {
@@ -256,7 +275,7 @@ describe('Northcoders_News API /api', () => {
     });
 
     describe('/api/comments/:comment_id', () => {
-        it.only('Should delete a comment following a DELETE request', () => {
+        it('Should delete a comment following a DELETE request', () => {
             let userID = userDocs[0]._id;
             return(request.delete(`/api/comments/${commentDocs[0]._id}`))
             .expect(201)
@@ -270,6 +289,27 @@ describe('Northcoders_News API /api', () => {
                 });
             });
         });
+        it('PUT should increment up comment like total for ?vote=up query', () => {
+            return(request.put(`/api/comments/${commentDocs[0]._id}?vote=up`))
+            .expect(201)
+            .then(res => {
+                expect(res.body.comment.votes).to.equal(1);
+            });
+         });
+         it('PUT should increment down comment like total for ?vote=down query', () => {
+            return(request.put(`/api/comments/${commentDocs[0]._id}?vote=down`))
+            .expect(201)
+            .then(res => {
+                expect(res.body.comment.votes).to.equal(-1);
+            });
+         });
+         it('Incorrect query in PUT request should return an appropriate error message', () => {
+            return(request.put(`/api/comments/${commentDocs[0]._id}?vote=nope`))
+            .expect(400)
+            .then(res => {
+                expect(res.text).to.equal('Error, invalid query');
+            });
+         });
     });
 });
 
