@@ -43,9 +43,21 @@
            eg <span class="small-highlight">http://northcoders-news-api.herokuapp.com/api/articles/:article_id?vote=up</span></p>
     </div>
     <div>
-            <span class="container"><h2>PUT </h2><h3>/api/articles/:article_id</h3></span>
-            <p>Increment or Decrement the votes of an article by one. This route requires a <span class="small-highlight">vote</span> query of 'up' or 'down'<br>
-               eg <span class="small-highlight">http://northcoders-news-api.herokuapp.com/api/articles/:article_id?vote=up</span></p>
-        </div>
+        <span class="container"><h2>PUT </h2><h3>/api/articles/:article_id</h3></span>
+        <p>Increment or Decrement the votes on a comment by one. This route requires a <span class="small-highlight">vote</span> query of 'up' or 'down'<br>
+               eg <span class="small-highlight">http://northcoders-news-api.herokuapp.com/api/comments/:comment_id?vote=down</span></p>
+    </div>
+    <div>
+        <span class="container"><h2>DELETE </h2><h3>/api/comments/:comment_id</h3></span>
+        <p>Deletes a comment if the comment was created by the Northcoder user</p>
+    </div>
+    <div>
+        <span class="container"><h2>GET </h2><h3>/api/users/:username</h3></span>
+        <p>Returns a JSON object with the profile data for the specified user.</p>
+    </div>
+    <div>
+        <span class="container"><h2>GET </h2><h3>/api/users/:username/repos</h3></span>
+        <p>Returns a JSON array with all the public repos of the specified user.</p>
+    </div>
 </body>
 </html>
