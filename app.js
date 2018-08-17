@@ -6,10 +6,10 @@ const apiRouter = require('./router/api');
 const mongoose = require('mongoose');
 
 //Refactor to ternary if time
-if (process.env.MONGO_URI) {
-    DB_URL = process.env.MONGO_URI;
-} else  DB_URL = require('./config/db-config.js').dbConfig[process.env.NODE_ENV].DB_URL;
-
+return process.env.MONGO_URI ? 
+    DB_URL = process.env.MONGO_URI :
+    DB_URL = require('./config/db-config.js').dbConfig[process.env.NODE_ENV].DB_URL;
+   
 mongoose.connect(DB_URL,{ useNewUrlParser: true })
 .then(() => {
     console.log(`Connected to ${DB_URL}`)
