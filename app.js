@@ -5,12 +5,10 @@ const bodyParser = require('body-parser');
 const apiRouter = require('./router/api');
 const mongoose = require('mongoose');
 
+//Refactor to ternary if time
 if (process.env.MONGO_URI) {
     DB_URL = process.env.MONGO_URI;
 } else  DB_URL = require('./config/db-config.js').dbConfig[process.env.NODE_ENV].DB_URL;
-
-//let DB_URL = process.env.MONGO_URI; 
-//|| require('./config/db-config.js').dbConfig[process.env.NODE_ENV].DB_URL;
 
 mongoose.connect(DB_URL)
 .then(() => {
