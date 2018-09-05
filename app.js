@@ -4,6 +4,9 @@ let DB_URL;
 const bodyParser = require('body-parser');
 const apiRouter = require('./router/api');
 const mongoose = require('mongoose');
+const cors = require('cors');
+
+app.use(cors())
 
 if (process.env.MONGO_URI) {
     DB_URL = process.env.MONGO_URI;
