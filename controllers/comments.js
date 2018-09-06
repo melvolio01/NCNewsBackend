@@ -4,7 +4,10 @@ const getAllComments = (req, res, next) => {
     Comment.find()
     .then(comments => {
         res.status(200).send({ comments })
-    });
+    })
+    .catch((err) => {
+        res.send({});
+    })
 }
 
 const removeCommentByCommentId = (req, res, next) => {
