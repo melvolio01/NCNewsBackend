@@ -20,7 +20,7 @@ const getArticleById = (req, res, next) => {
             if (err.name === 'CastError') {
                 next({status : 400, message : 'Error, page not found'});
             } else {
-                next({ status : 404, message: err.message});
+                next({ status : 404, message: 'Error, no article with that ID exists'});
             }
         }       
     });
@@ -43,7 +43,7 @@ const getArticleComments = (req, res, next) => {
             if (err.name === 'CastError') {
                 next({status : 400, message : 'Error, page not found'});
             } else {
-                next({ status : 404, message: 'Error, no article with that ID exists'});
+                res.send({});
             }
         }       
     });
