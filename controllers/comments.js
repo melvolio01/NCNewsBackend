@@ -2,6 +2,7 @@ const Comment = require('../models/index.js').Comment;
 
 const getAllComments = (req, res, next) => {
     Comment.find()
+    .populate("created_by")
     .then(comments => {
         res.status(200).send({ comments })
     })
