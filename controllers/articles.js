@@ -20,7 +20,7 @@ const getArticleById = (req, res, next) => {
             if (err.name === 'CastError') {
                 next({status : 400, message : 'Error, page not found'});
             } else {
-                next({ status : 404, message: 'Error, no article with that ID exists'});
+                next({ status : 404, message: err.message});
             }
         }       
     });
