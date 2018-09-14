@@ -1,9 +1,12 @@
 const Article = require('../models/index.js').Article;
 const Comment = require('../models/index.js').Comment;
+const {addCommentCount} = require('../utils')
 
 const getAllArticles = (req, res, next) => {
     Article.find()
+    .lean()
     .populate("created_by")
+    .then(articles => addCommentCount(articles,Comment))
     .then(articles => {
         res.status(200).send({ articles })
     });

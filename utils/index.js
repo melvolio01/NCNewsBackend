@@ -6,6 +6,18 @@ exports.formatUserData = (userData) => {
     })
 }
 
+exports.addCommentCount = (articles,Comment) => {
+    
+   return Promise.all(articles.map(article => Comment.count({belongs_to : article._id})))
+   .then(counts => {
+      return articles.map((article,i) => {
+           article.comment_count = counts[i];
+           return article;
+       })
+   })
+}   
+
+
 exports.formatTopicData = (topicData) => {
    return topicData.map((topicDatum) => { 
        return {
