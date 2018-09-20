@@ -83,6 +83,8 @@ const addCommentToArticle = (req, res, next) => {
         belongs_to: commentArticle,
         created_by: newComment.created_by
     })
+        .populate("created_by")
+        .populate("belongs_to")
         .then(comment => {
             res.status(201).send({ comment });
         })
