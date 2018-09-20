@@ -38,6 +38,8 @@ const getArticleComments = (req, res, next) => {
             commentArticle = article;
         });
     Comment.find({ belongs_to: req.params.article_id })
+        .populate("created_by")
+        .populate("belongs_to")
         .then(comments => {
             if (commentArticle.body !== null) {
                 res.status(200).send({ comments });
@@ -84,7 +86,6 @@ const addCommentToArticle = (req, res, next) => {
         created_by: newComment.created_by
     })
         .populate("created_by")
-        .populate("belongs_to")
         .then(comment => {
             res.status(201).send({ comment });
         })
