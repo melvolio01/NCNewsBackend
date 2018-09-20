@@ -80,11 +80,12 @@ const updateArticleLikes = (req, res, next) => {
 const addCommentToArticle = (req, res, next) => {
     let newComment = req.body;
     let commentArticle = req.params.article_id;
-    Comment.create.populate({
+    Comment.create({
         body: newComment.body,
         belongs_to: commentArticle,
         created_by: newComment.created_by
     })
+        .populate("created_by")
         .then(comment => {
             res.status(201).send({ comment });
         })
