@@ -1,5 +1,6 @@
 const Topic = require('../models/index.js').Topic;
 const Article = require('../models/index.js').Article;
+const Comment = require('../models/index.js').Comment;
 const { addCommentCount } = require('../utils')
 
 const getAllTopics = (req, res, next) => {
