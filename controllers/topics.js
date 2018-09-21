@@ -13,6 +13,7 @@ const getAllTopics = (req, res, next) => {
 const getArticlesByTopic = (req, res, next) => {
     let topic_slug = req.params;
     Article.find({ 'belongs_to': `${topic_slug.topic_slug}` })
+        .lean()
         .populate("created_by")
         .then(articles => addCommentCount(articles, Comment))
         .then(articles => {
