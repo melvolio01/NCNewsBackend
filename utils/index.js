@@ -6,24 +6,23 @@ exports.formatUserData = (userData) => {
     })
 }
 
-exports.addCommentCount = (articles,Comment) => {
-    
-   return Promise.all(articles.map(article => Comment.count({belongs_to : article._id})))
-   .then(counts => {
-      return articles.map((article,i) => {
-           article.comment_count = counts[i];
-           return article;
-       })
-   })
-}   
+exports.addCommentCount = (articles, Comment) => {
+    return Promise.all(articles.map(article => Comment.count({ belongs_to: article._id })))
+        .then(counts => {
+            return articles.map((article, i) => {
+                article.comment_count = counts[i];
+                return article;
+            })
+        })
+}
 
 
 exports.formatTopicData = (topicData) => {
-   return topicData.map((topicDatum) => { 
-       return {
-           ...topicDatum
-       }
-   })
+    return topicData.map((topicDatum) => {
+        return {
+            ...topicDatum
+        }
+    })
 }
 
 exports.formatArticleData = (articleData, userDocs, topicDocs) => {
@@ -31,13 +30,13 @@ exports.formatArticleData = (articleData, userDocs, topicDocs) => {
         const topic_name = topicDocs.find((topic) => {
             return topic.slug === articleDatum.topic
         })
-       
-            
-        const user_name = userDocs.find((user) => { 
+
+
+        const user_name = userDocs.find((user) => {
             return user.username === articleDatum.created_by
         })
         const created_by = user_name._id;
-        
+
         return {
             ...articleDatum,
             belongs_to: topic_name.slug,
@@ -50,7 +49,7 @@ exports.formatCommentData = (commentData, articleDocs) => {
     return commentData.map((commentDatum) => {
         const article_info = articleDocs.find((article) => {
             return article.title === commentDatum.belongs_to
-        }); 
+        });
         return {
             ...commentDatum,
             belongs_to: article_info._id,
