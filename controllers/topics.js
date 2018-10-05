@@ -34,10 +34,10 @@ const addArticleByTopic = (req, res, next) => {
         created_by: newArticle.username
     })
         .then(article => {
+            console.log(res.status);
             res.status(201).send({ article });
         })
         .catch(err => {
-            console.log(err);
             res.send(err);
             // next({ status: 400, message: 'The article is incomplete, please check all required fields have been completed.' });
         });
