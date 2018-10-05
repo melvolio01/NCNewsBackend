@@ -31,7 +31,8 @@ const addArticleByTopic = (req, res, next) => {
         belongs_to: articleSlug,
         title: newArticle.title,
         body: newArticle.body,
-        created_by: newArticle.username
+        created_by: newArticle.username,
+        img_url: newArticle.img_url
     })
         .then(article => {
             console.log(res.status);
