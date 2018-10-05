@@ -37,7 +37,9 @@ const addArticleByTopic = (req, res, next) => {
             res.status(201).send({ article });
         })
         .catch(err => {
-            next({ status: 400, message: 'The article is incomplete, please check all required fields have been completed.' });
+            console.log(err);
+            res.send(err);
+            // next({ status: 400, message: 'The article is incomplete, please check all required fields have been completed.' });
         });
 }
 
