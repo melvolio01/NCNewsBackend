@@ -19,6 +19,9 @@ const ArticleSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  img_url: {
+    type: string
+  },
   belongs_to: {
     type: String,
     required: true
