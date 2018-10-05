@@ -20,7 +20,7 @@ const ArticleSchema = new Schema({
     default: Date.now
   },
   img_url: {
-    type: string
+    type: String
   },
   belongs_to: {
     type: String,
